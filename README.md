@@ -60,16 +60,16 @@ http://localhost:5157
 
 Основні папки проєкту:
 
-Controllers — контролери
+Controllers - контролери
 
-Models — моделі
+Models - моделі
 
-Views — сторінки сайту
+Views - сторінки сайту
 
-Data — робота з базою даних
+Data - робота з базою даних
 
-wwwroot — стилі, картинки і JavaScript
+wwwroot - стилі, картинки і JavaScript
 
-Migrations — міграції бази даних
+Migrations - міграції бази даних
 
 Проєкт зроблений для навчальної роботи.
