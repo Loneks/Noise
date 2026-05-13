@@ -5,8 +5,8 @@ obj/
 *.user
 *.suo
 
-app.db-shm
-app.db-wal
+noise.db-shm
+noise.db-wal
 
 .DS_Store
 
