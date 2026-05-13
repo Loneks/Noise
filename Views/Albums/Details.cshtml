@@ -1,0 +1,45 @@
+@model Noise.Models.MusicItem
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Album</p>
+    <h1>@Model.Title</h1>
+    <p>@Model.Description</p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        <h2>Основна інформація</h2>
+
+        <p>
+            Виконавець: <strong>@Model.Artist?.Name</strong><br />
+            Жанр: <strong>@Model.Genre?.Name</strong><br />
+            Тип: <strong>@Model.Type</strong><br />
+            Рік випуску: <strong>@Model.ReleaseYear</strong>
+        </p>
+
+        <h2>Мультимедійні матеріали</h2>
+
+        @if (Model.MediaItems.Any())
+        {
+            <div class="mini-list">
+                @foreach (var media in Model.MediaItems)
+                {
+                    <div class="mini-card">
+                        <h3>@media.Title</h3>
+                        <p>@media.Type</p>
+                        <p>@media.Description</p>
+                        <p>@media.UrlOrPath</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>Для цього альбому поки не додано мультимедійних матеріалів.</p>
+        }
+    </div>
+</section>

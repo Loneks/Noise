@@ -1,0 +1,53 @@
+@model IEnumerable<Noise.Models.MediaItem>
+
+@{
+    ViewData["Title"] = "Інформаційні матеріали";
+    ViewData["SectionName"] = "Materials";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Noise Museum</p>
+    <h1>Інформаційні матеріали</h1>
+    <p>
+        Інформаційний розділ із зображеннями, обкладинками, постерами, ілюстраціями
+        та зовнішніми посиланнями, пов’язаними з історією музики, жанрами,
+        виконавцями та альбомами.
+    </p>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state">
+        <h2>Інформаційних матеріалів поки немає</h2>
+        <p>
+            У системі ще немає обкладинок, постерів, ілюстрацій або зовнішніх посилань.
+            Після додавання матеріалів вони з’являться на цій сторінці.
+        </p>
+    </section>
+}
+else
+{
+    <section class="content-grid">
+        @foreach (var media in Model)
+        {
+            <article class="content-card">
+                <p class="card-meta">@media.Type</p>
+
+                <h2>@media.Title</h2>
+
+                <p>@media.Description</p>
+
+                <p>
+                    Пов’язаний матеріал:
+                    <strong>@media.MusicItem?.Title</strong><br />
+                    Виконавець:
+                    <strong>@media.MusicItem?.Artist?.Name</strong>
+                </p>
+
+                <a class="card-link" asp-controller="Media" asp-action="Details" asp-route-id="@media.Id">
+                    Переглянути інформацію
+                </a>
+            </article>
+        }
+    </section>
+}

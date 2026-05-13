@@ -1,0 +1,164 @@
+@model Noise.ViewModels.SearchResultViewModel
+
+@{
+    ViewData["Title"] = "Search";
+
+    var hasQuery = !string.IsNullOrWhiteSpace(Model.Query);
+
+    var hasResults = Model.Genres.Any()
+        || Model.Artists.Any()
+        || Model.MusicItems.Any()
+        || Model.News.Any()
+        || Model.MediaItems.Any();
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Noise Museum</p>
+    <h1>Пошук</h1>
+
+    @if (hasQuery)
+    {
+        <p>Результати пошуку за запитом: <strong>@Model.Query</strong></p>
+    }
+    else
+    {
+        <p>
+            Введи запит у пошуковому полі зверху, щоб знайти жанри, виконавців,
+            альбоми, новини або інформаційні матеріали.
+        </p>
+    }
+</section>
+
+@if (hasQuery && !hasResults)
+{
+    <section class="empty-state">
+        <h2>Нічого не знайдено</h2>
+        <p>
+            За запитом “@Model.Query” не знайдено жанрів, виконавців, альбомів,
+            новин або інформаційних матеріалів.
+        </p>
+    </section>
+}
+
+@if (Model.Genres.Any())
+{
+    <section class="search-section">
+        <h2>Жанри</h2>
+
+        <div class="content-grid">
+            @foreach (var genre in Model.Genres)
+            {
+                <article class="content-card">
+                    <p class="card-meta">@genre.YearOfOrigin • @genre.Country?.Name</p>
+                    <h2>@genre.Name</h2>
+                    <p>@genre.Description</p>
+
+                    <a class="card-link" asp-controller="Genres" asp-action="Details" asp-route-id="@genre.Id">
+                        Детальніше
+                    </a>
+                </article>
+            }
+        </div>
+    </section>
+}
+
+@if (Model.Artists.Any())
+{
+    <section class="search-section">
+        <h2>Виконавці та гурти</h2>
+
+        <div class="content-grid">
+            @foreach (var artist in Model.Artists)
+            {
+                <article class="content-card">
+                    <p class="card-meta">@artist.StartYear — @(artist.EndYear?.ToString() ?? "дотепер")</p>
+
+                    <h2>@artist.Name</h2>
+
+                    <p>
+                        Жанр: @artist.Genre?.Name<br />
+                        Країна: @artist.Country?.Name
+                    </p>
+
+                    <p>@artist.Biography</p>
+
+                    <a class="card-link" asp-controller="Artists" asp-action="Details" asp-route-id="@artist.Id">
+                        Детальніше
+                    </a>
+                </article>
+            }
+        </div>
+    </section>
+}
+
+@if (Model.MusicItems.Any())
+{
+    <section class="search-section">
+        <h2>Альбоми та музичні матеріали</h2>
+
+        <div class="album-table">
+            @foreach (var item in Model.MusicItems)
+            {
+                <a class="album-table-row" asp-controller="Albums" asp-action="Details" asp-route-id="@item.Id">
+                    <span>@item.Title</span>
+                    <span>@item.Type</span>
+                    <span>@item.Artist?.Name</span>
+                    <span>@item.ReleaseYear</span>
+                </a>
+            }
+        </div>
+    </section>
+}
+
+@if (Model.News.Any())
+{
+    <section class="search-section">
+        <h2>Новини</h2>
+
+        <div class="content-grid">
+            @foreach (var newsItem in Model.News)
+            {
+                <article class="content-card">
+                    <p class="card-meta">@newsItem.PublishedAt.ToString("dd.MM.yyyy")</p>
+
+                    <h2>@newsItem.Title</h2>
+
+                    <p>@newsItem.Text</p>
+
+                    <a class="card-link" asp-controller="News" asp-action="Details" asp-route-id="@newsItem.Id">
+                        Детальніше
+                    </a>
+                </article>
+            }
+        </div>
+    </section>
+}
+
+@if (Model.MediaItems.Any())
+{
+    <section class="search-section">
+        <h2>Інформаційні матеріали</h2>
+
+        <div class="content-grid">
+            @foreach (var item in Model.MediaItems)
+            {
+                <article class="content-card">
+                    <p class="card-meta">@item.Type</p>
+
+                    <h2>@item.Title</h2>
+
+                    <p>@item.Description</p>
+
+                    <p>
+                        Пов’язаний матеріал: @item.MusicItem?.Title<br />
+                        Виконавець: @item.MusicItem?.Artist?.Name
+                    </p>
+
+                    <a class="card-link" asp-controller="Media" asp-action="Details" asp-route-id="@item.Id">
+                        Переглянути інформацію
+                    </a>
+                </article>
+            }
+        </div>
+    </section>
+}

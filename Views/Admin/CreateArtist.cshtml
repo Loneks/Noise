@@ -1,0 +1,67 @@
+@model Noise.Models.Artist
+
+@{
+    ViewData["Title"] = "Додати виконавця";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Admin Panel</p>
+    <h1>Додати виконавця</h1>
+    <p>
+        Форма для додавання нового виконавця, гурту або композитора до музею Noise.
+    </p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        <form asp-action="CreateArtist" method="post" class="admin-form">
+            <div class="form-group">
+                <label asp-for="Name">Назва / ім’я виконавця</label>
+                <input asp-for="Name" class="form-control" placeholder="Наприклад: Queen" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartYear">Рік початку діяльності</label>
+                <input asp-for="StartYear" class="form-control" placeholder="Наприклад: 1970" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndYear">Рік завершення діяльності</label>
+                <input asp-for="EndYear" class="form-control" placeholder="Можна залишити порожнім" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Biography">Біографія / опис</label>
+                <textarea asp-for="Biography" class="form-control" rows="6" placeholder="Введіть короткий опис виконавця"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryId">Країна</label>
+                <select asp-for="CountryId" class="form-control">
+                    @foreach (var country in ViewBag.Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GenreId">Жанр</label>
+                <select asp-for="GenreId" class="form-control">
+                    @foreach (var genre in ViewBag.Genres)
+                    {
+                        <option value="@genre.Id">@genre.Name</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="admin-button">
+                Додати виконавця
+            </button>
+
+            <a class="card-link ms-3" asp-controller="Admin" asp-action="Artists">
+                Назад до керування виконавцями
+            </a>
+        </form>
+    </div>
+</section>

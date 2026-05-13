@@ -1,0 +1,66 @@
+@model IEnumerable<Noise.Models.MediaItem>
+
+@{
+    ViewData["Title"] = "Керування інформаційними матеріалами";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Admin Panel</p>
+    <h1>Керування інформаційними матеріалами</h1>
+    <p>
+        На цій сторінці адміністратор може переглядати, додавати, редагувати та видаляти
+        зображення, обкладинки, постери, ілюстрації та зовнішні посилання, пов’язані з історією музики.
+        Система не передбачає прослуховування музики або відтворення відео.
+    </p>
+
+    <div class="admin-actions">
+        <a class="admin-button" asp-controller="Admin" asp-action="CreateMediaItem">
+            Додати матеріал
+        </a>
+
+        <a class="admin-button secondary-button" asp-controller="Admin" asp-action="Index">
+            Назад до адмін-панелі
+        </a>
+    </div>
+</section>
+
+<section class="content-grid">
+    @foreach (var item in Model)
+    {
+        <article class="content-card">
+            <p class="card-meta">@item.Type</p>
+
+            <h2>@item.Title</h2>
+
+            <p>@item.Description</p>
+
+            <p>
+                Пов’язаний матеріал: @item.MusicItem?.Title<br />
+                Виконавець: @item.MusicItem?.Artist?.Name
+            </p>
+
+            <p>
+                Шлях або зовнішнє посилання:<br />
+                @item.UrlOrPath
+            </p>
+
+            <div class="admin-card-actions">
+                <div class="admin-card-main-actions">
+                    <a class="card-link" asp-controller="Media" asp-action="Details" asp-route-id="@item.Id">
+                        Переглянути інформацію
+                    </a>
+
+                    <a class="card-link" asp-controller="Admin" asp-action="EditMediaItem" asp-route-id="@item.Id">
+                        Редагувати
+                    </a>
+                </div>
+
+                <form asp-controller="Admin" asp-action="DeleteMediaItem" asp-route-id="@item.Id" method="post" class="delete-form">
+                    <button type="submit" class="delete-button" onclick="return confirm('Ви точно хочете видалити цей інформаційний матеріал?');">
+                        Видалити
+                    </button>
+                </form>
+            </div>
+        </article>
+    }
+</section>

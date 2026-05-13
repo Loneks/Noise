@@ -1,0 +1,44 @@
+@model IEnumerable<Noise.Models.Genre>
+
+@{
+    ViewData["Title"] = "Музичні жанри";
+    ViewData["SectionName"] = "Genre";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Noise Museum</p>
+    <h1>Музичні жанри</h1>
+    <p>
+        Переглянь основні музичні жанри, їх походження, країну виникнення
+        та роль у розвитку музичної культури.
+    </p>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state">
+        <h2>Жанри поки не додано</h2>
+        <p>
+            У системі ще немає музичних жанрів. Дані можна додати через адмін-панель.
+        </p>
+    </section>
+}
+else
+{
+    <section class="content-grid">
+        @foreach (var genre in Model)
+        {
+            <article class="content-card">
+                <p class="card-meta">@genre.YearOfOrigin • @genre.Country?.Name</p>
+
+                <h2>@genre.Name</h2>
+
+                <p>@genre.Description</p>
+
+                <a class="card-link" asp-controller="Genres" asp-action="Details" asp-route-id="@genre.Id">
+                    Детальніше
+                </a>
+            </article>
+        }
+    </section>
+}

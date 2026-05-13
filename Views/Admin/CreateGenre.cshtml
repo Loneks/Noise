@@ -1,0 +1,52 @@
+@model Noise.Models.Genre
+
+@{
+    ViewData["Title"] = "Додати жанр";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Admin Panel</p>
+    <h1>Додати жанр</h1>
+    <p>
+        Форма для додавання нового музичного жанру до інтерактивного музею Noise.
+    </p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        <form asp-action="CreateGenre" method="post" class="admin-form">
+            <div class="form-group">
+                <label asp-for="Name">Назва жанру</label>
+                <input asp-for="Name" class="form-control" placeholder="Наприклад: Джаз" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description">Опис жанру</label>
+                <textarea asp-for="Description" class="form-control" rows="6" placeholder="Введіть опис жанру"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="YearOfOrigin">Рік виникнення</label>
+                <input asp-for="YearOfOrigin" class="form-control" placeholder="Наприклад: 1920" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryId">Країна походження</label>
+                <select asp-for="CountryId" class="form-control">
+                    @foreach (var country in ViewBag.Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="admin-button">
+                Додати жанр
+            </button>
+
+            <a class="card-link ms-3" asp-controller="Admin" asp-action="Genres">
+                Назад до керування жанрами
+            </a>
+        </form>
+    </div>
+</section>

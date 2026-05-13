@@ -1,0 +1,26 @@
+@model Noise.Models.News
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["SectionName"] = "News";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">News</p>
+    <h1>@Model.Title</h1>
+    <p>@Model.PublishedAt.ToString("dd.MM.yyyy")</p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+        {
+            <div class="news-image-placeholder">
+                @Model.ImageUrl
+            </div>
+        }
+
+        <h2>Опис новини</h2>
+        <p>@Model.Text</p>
+    </div>
+</section>

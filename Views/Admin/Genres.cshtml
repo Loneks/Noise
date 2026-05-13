@@ -1,0 +1,54 @@
+@model IEnumerable<Noise.Models.Genre>
+
+@{
+    ViewData["Title"] = "Керування жанрами";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Admin Panel</p>
+    <h1>Керування жанрами</h1>
+    <p>
+        На цій сторінці адміністратор може переглядати, додавати, редагувати та видаляти музичні жанри.
+    </p>
+
+    <div class="admin-actions">
+        <a class="admin-button" asp-controller="Admin" asp-action="CreateGenre">
+            Додати жанр
+        </a>
+
+        <a class="admin-button secondary-button" asp-controller="Admin" asp-action="Index">
+            Назад до адмін-панелі
+        </a>
+    </div>
+</section>
+
+<section class="content-grid">
+    @foreach (var item in Model)
+    {
+        <article class="content-card">
+            <p class="card-meta">@item.YearOfOrigin • @item.Country?.Name</p>
+
+            <h2>@item.Name</h2>
+
+            <p>@item.Description</p>
+
+            <div class="admin-card-actions">
+                <div class="admin-card-main-actions">
+                    <a class="card-link" asp-controller="Genres" asp-action="Details" asp-route-id="@item.Id">
+                        Переглянути
+                    </a>
+
+                    <a class="card-link" asp-controller="Admin" asp-action="EditGenre" asp-route-id="@item.Id">
+                        Редагувати
+                    </a>
+                </div>
+
+                <form asp-controller="Admin" asp-action="DeleteGenre" asp-route-id="@item.Id" method="post" class="delete-form">
+                    <button type="submit" class="delete-button" onclick="return confirm('Ви точно хочете видалити цей запис?');">
+                        Видалити
+                    </button>
+                </form>
+            </div>
+        </article>
+    }
+</section>

@@ -1,0 +1,99 @@
+@{
+    ViewData["Title"] = "Адмін-панель";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Admin Panel</p>
+    <h1>Адмін-панель</h1>
+    <p>
+        Розділ для керування контентом інтерактивного музичного музею Noise:
+        жанрами, виконавцями, альбомами, новинами та мультимедійними матеріалами.
+    </p>
+</section>
+
+<section class="admin-stats">
+    <article class="content-card">
+        <p class="card-meta">Genres</p>
+        <h2>@ViewBag.GenresCount</h2>
+        <p>Кількість музичних жанрів у системі.</p>
+    </article>
+
+    <article class="content-card">
+        <p class="card-meta">Artists</p>
+        <h2>@ViewBag.ArtistsCount</h2>
+        <p>Кількість виконавців та гуртів.</p>
+    </article>
+
+    <article class="content-card">
+        <p class="card-meta">Albums</p>
+        <h2>@ViewBag.MusicItemsCount</h2>
+        <p>Кількість музичних матеріалів та альбомів.</p>
+    </article>
+
+    <article class="content-card">
+        <p class="card-meta">News</p>
+        <h2>@ViewBag.NewsCount</h2>
+        <p>Кількість новин та оновлень музею.</p>
+    </article>
+
+    <article class="content-card">
+        <p class="card-meta">Media</p>
+        <h2>@ViewBag.MediaItemsCount</h2>
+        <p>Кількість мультимедійних матеріалів.</p>
+    </article>
+</section>
+
+<div class="admin-actions">
+    <a class="admin-button" asp-controller="Admin" asp-action="News">
+        Керувати новинами
+    </a>
+
+    <a class="admin-button" asp-controller="Admin" asp-action="Genres">
+        Керувати жанрами
+    </a>
+
+    <a class="admin-button" asp-controller="Admin" asp-action="Artists">
+        Керувати виконавцями
+    </a>
+
+    <a class="admin-button" asp-controller="Admin" asp-action="MusicItems">
+        Керувати альбомами
+    </a>
+
+    <a class="admin-button" asp-controller="Admin" asp-action="MediaItems">
+        Керувати матеріалами
+    </a>
+</div>
+
+<section class="details-layout admin-panel-block">
+    <div class="details-main">
+        <h2>Можливості адміністратора</h2>
+
+        <div class="mini-list">
+            <div class="mini-card">
+                <h3>Керування жанрами</h3>
+                <p>Додавання, редагування та видалення інформації про музичні жанри.</p>
+            </div>
+
+            <div class="mini-card">
+                <h3>Керування виконавцями</h3>
+                <p>Оновлення інформації про виконавців, гурти та композиторів.</p>
+            </div>
+
+            <div class="mini-card">
+                <h3>Керування альбомами</h3>
+                <p>Додавання музичних альбомів, релізів та описових матеріалів.</p>
+            </div>
+
+            <div class="mini-card">
+                <h3>Керування новинами</h3>
+                <p>Публікація новин та оновлень інтерактивного музею.</p>
+            </div>
+
+            <div class="mini-card">
+                <h3>Керування мультимедіа</h3>
+                <p>Додавання зображень, постерів, обкладинок та зовнішніх посилань.</p>
+            </div>
+        </div>
+    </div>
+</section>

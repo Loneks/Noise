@@ -1,0 +1,59 @@
+@model IEnumerable<Noise.Models.MusicItem>
+
+@{
+    ViewData["Title"] = "Керування альбомами";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Admin Panel</p>
+    <h1>Керування альбомами</h1>
+    <p>
+        На цій сторінці адміністратор може переглядати, додавати, редагувати та видаляти музичні альбоми й матеріали.
+    </p>
+
+    <div class="admin-actions">
+        <a class="admin-button" asp-controller="Admin" asp-action="CreateMusicItem">
+            Додати альбом
+        </a>
+
+        <a class="admin-button secondary-button" asp-controller="Admin" asp-action="Index">
+            Назад до адмін-панелі
+        </a>
+    </div>
+</section>
+
+<section class="content-grid">
+    @foreach (var item in Model)
+    {
+        <article class="content-card">
+            <p class="card-meta">@item.ReleaseYear • @item.Type</p>
+
+            <h2>@item.Title</h2>
+
+            <p>
+                Виконавець: @item.Artist?.Name<br />
+                Жанр: @item.Genre?.Name
+            </p>
+
+            <p>@item.Description</p>
+
+            <div class="admin-card-actions">
+                <div class="admin-card-main-actions">
+                    <a class="card-link" asp-controller="Albums" asp-action="Details" asp-route-id="@item.Id">
+                        Переглянути
+                    </a>
+
+                    <a class="card-link" asp-controller="Admin" asp-action="EditMusicItem" asp-route-id="@item.Id">
+                        Редагувати
+                    </a>
+                </div>
+
+                <form asp-controller="Admin" asp-action="DeleteMusicItem" asp-route-id="@item.Id" method="post" class="delete-form">
+                    <button type="submit" class="delete-button" onclick="return confirm('Ви точно хочете видалити цей альбом або музичний матеріал?');">
+                        Видалити
+                    </button>
+                </form>
+            </div>
+        </article>
+    }
+</section>

@@ -1,0 +1,59 @@
+@model IEnumerable<Noise.Models.Artist>
+
+@{
+    ViewData["Title"] = "Виконавці та гурти";
+    ViewData["SectionName"] = "Artist";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Noise Museum</p>
+    <h1>Виконавці та гурти</h1>
+    <p>
+        Перегляд відомих виконавців, гуртів і композиторів, які вплинули
+        на розвиток музичної культури.
+    </p>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state">
+        <h2>Виконавців поки не додано</h2>
+        <p>
+            У системі ще немає виконавців або гуртів. Дані можна додати через адмін-панель.
+        </p>
+    </section>
+}
+else
+{
+    <section class="content-grid">
+        @foreach (var artist in Model)
+        {
+            <article class="content-card">
+                <p class="card-meta">
+                    @artist.StartYear
+                    @if (artist.EndYear != null)
+                    {
+                        <span> — @artist.EndYear</span>
+                    }
+                    else
+                    {
+                        <span> — дотепер</span>
+                    }
+                </p>
+
+                <h2>@artist.Name</h2>
+
+                <p>
+                    Жанр: @artist.Genre?.Name<br />
+                    Країна: @artist.Country?.Name
+                </p>
+
+                <p>@artist.Biography</p>
+
+                <a class="card-link" asp-controller="Artists" asp-action="Details" asp-route-id="@artist.Id">
+                    Детальніше
+                </a>
+            </article>
+        }
+    </section>
+}

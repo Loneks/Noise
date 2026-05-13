@@ -1,0 +1,44 @@
+@model Noise.Models.News
+
+@{
+    ViewData["Title"] = "Редагувати новину";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Admin Panel</p>
+    <h1>Редагувати новину</h1>
+    <p>
+        Форма для зміни заголовка, тексту або зображення новини музею Noise.
+    </p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        <form asp-action="EditNews" method="post" class="admin-form">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Title">Заголовок новини</label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Text">Текст новини</label>
+                <textarea asp-for="Text" class="form-control" rows="6"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageUrl">Посилання на зображення</label>
+                <input asp-for="ImageUrl" class="form-control" />
+            </div>
+
+            <button type="submit" class="admin-button">
+                Зберегти зміни
+            </button>
+
+            <a class="card-link ms-3" asp-controller="Admin" asp-action="News">
+                Назад до керування новинами
+            </a>
+        </form>
+    </div>
+</section>

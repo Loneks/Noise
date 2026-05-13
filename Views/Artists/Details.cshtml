@@ -1,0 +1,52 @@
+@model Noise.Models.Artist
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Artist</p>
+    <h1>@Model.Name</h1>
+    <p>@Model.Biography</p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        <h2>Основна інформація</h2>
+
+        <p>
+            Країна: <strong>@Model.Country?.Name</strong><br />
+            Жанр: <strong>@Model.Genre?.Name</strong><br />
+            Початок діяльності: <strong>@Model.StartYear</strong><br />
+
+            @if (Model.EndYear != null)
+            {
+                <span>Завершення діяльності: <strong>@Model.EndYear</strong></span>
+            }
+            else
+            {
+                <span>Статус: <strong>активний</strong></span>
+            }
+        </p>
+
+        <h2>Музичні матеріали</h2>
+
+        @if (Model.MusicItems.Any())
+        {
+            <div class="mini-list">
+                @foreach (var item in Model.MusicItems)
+                {
+                    <div class="mini-card">
+                        <h3>@item.Title</h3>
+                        <p>@item.ReleaseYear • @item.Type</p>
+                        <p>@item.Description</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>Для цього виконавця поки не додано музичних матеріалів.</p>
+        }
+    </div>
+</section>

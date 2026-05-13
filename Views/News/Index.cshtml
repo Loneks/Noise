@@ -1,0 +1,43 @@
+@model IEnumerable<Noise.Models.News>
+
+@{
+    ViewData["Title"] = "Новини";
+    ViewData["SectionName"] = "News";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Noise Museum</p>
+    <h1>Новини та оновлення музею</h1>
+    <p>
+        Останні новини, оновлення контенту та повідомлення інтерактивного музичного музею.
+    </p>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state">
+        <h2>Новин поки немає</h2>
+        <p>
+            У системі ще немає новин або оновлень музею.
+        </p>
+    </section>
+}
+else
+{
+    <section class="content-grid">
+        @foreach (var item in Model)
+        {
+            <article class="content-card">
+                <p class="card-meta">@item.PublishedAt.ToString("dd.MM.yyyy")</p>
+
+                <h2>@item.Title</h2>
+
+                <p>@item.Text</p>
+
+                <a class="card-link" asp-controller="News" asp-action="Details" asp-route-id="@item.Id">
+                    Детальніше
+                </a>
+            </article>
+        }
+    </section>
+}

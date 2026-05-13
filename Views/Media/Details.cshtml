@@ -1,0 +1,45 @@
+@model Noise.Models.MediaItem
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="page-hero">
+    <p class="eyebrow">@Model.Type</p>
+    <h1>@Model.Title</h1>
+    <p>@Model.Description</p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        <h2>Основна інформація</h2>
+
+        <p>
+            Тип матеріалу: <strong>@Model.Type</strong><br />
+            Пов’язаний музичний матеріал: <strong>@Model.MusicItem?.Title</strong><br />
+            Виконавець: <strong>@Model.MusicItem?.Artist?.Name</strong>
+        </p>
+
+        <h2>Шлях або зовнішнє посилання</h2>
+        <p>
+            @if (!string.IsNullOrWhiteSpace(Model.UrlOrPath))
+            {
+                <span>@Model.UrlOrPath</span>
+            }
+            else
+            {
+                <span>Посилання або шлях до матеріалу не вказано.</span>
+            }
+        </p>
+
+        <p class="media-note">
+            У системі не передбачається безпосереднє прослуховування музики або
+            відтворення відео. Мультимедійні матеріали використовуються як
+            інформаційний та візуальний супровід.
+        </p>
+
+        <a class="card-link" asp-controller="Media" asp-action="Index">
+            Назад до мультимедіа
+        </a>
+    </div>
+</section>

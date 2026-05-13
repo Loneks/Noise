@@ -1,0 +1,154 @@
+@model IEnumerable<Noise.Models.MusicItem>
+
+@{
+    ViewData["Title"] = "Музичні альбоми";
+    ViewData["SectionName"] = "Albums";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">RANKING</p>
+    <h1>Музичні альбоми</h1>
+    <p>
+        Перегляд музичних альбомів, релізів і матеріалів, які мають культурне значення
+        для розвитку музики.
+    </p>
+</section>
+
+<section class="filter-panel">
+    <form asp-controller="Albums" asp-action="Index" method="get" class="filter-form">
+        <div class="filter-group">
+            <label>Жанр</label>
+            <select name="genreId">
+                <option value="">Усі жанри</option>
+
+                @foreach (var genre in ViewBag.Genres)
+                {
+                    if (ViewBag.SelectedGenreId == genre.Id)
+                    {
+                        <option value="@genre.Id" selected>@genre.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@genre.Id">@genre.Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Виконавець</label>
+            <select name="artistId">
+                <option value="">Усі виконавці</option>
+
+                @foreach (var artist in ViewBag.Artists)
+                {
+                    if (ViewBag.SelectedArtistId == artist.Id)
+                    {
+                        <option value="@artist.Id" selected>@artist.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@artist.Id">@artist.Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Рік</label>
+            <input type="number" name="year" value="@ViewBag.SelectedYear" placeholder="Наприклад: 1970" />
+        </div>
+
+        <div class="filter-actions">
+            <button type="submit" class="admin-button">
+                Застосувати
+            </button>
+
+            <a class="admin-button secondary-button" asp-controller="Albums" asp-action="Index">
+                Скинути
+            </a>
+        </div>
+    </form>
+</section>
+
+@if (Model.Any())
+{
+    <section class="ranking-section">
+        <p class="eyebrow red-text">RANKING</p>
+        <h2>Top 5 Most Influential Albums and Tracks</h2>
+
+        <div class="album-row">
+            @foreach (var album in Model.Take(5))
+            {
+                <article class="album-card">
+                    <div class="album-cover-placeholder">
+                        <span>NOISE</span>
+                    </div>
+
+                    <h3>@album.Title</h3>
+                    <p>@album.Artist?.Name</p>
+                    <span>@album.ReleaseYear</span>
+
+                    <a class="card-link" asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id">
+                        Детальніше
+                    </a>
+                </article>
+            }
+        </div>
+    </section>
+
+    <section class="table-section">
+        <h2>TOP TRACK AND ALBUMS</h2>
+
+        <table class="noise-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Artist</th>
+                    <th>Genre</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    var index = 1;
+                }
+
+                @foreach (var album in Model)
+                {
+                    <tr>
+                        <td>@index</td>
+                        <td>
+                            <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id">
+                                @album.Title
+                            </a>
+                        </td>
+                        <td>@album.Type</td>
+                        <td>@album.Artist?.Name</td>
+                        <td>@album.Genre?.Name</td>
+                        <td>@album.ReleaseYear</td>
+                    </tr>
+
+                    index++;
+                }
+            </tbody>
+        </table>
+    </section>
+}
+else
+{
+    <section class="empty-state">
+        <h2>Альбоми не знайдено</h2>
+        <p>
+            За вибраними параметрами фільтрації альбомів не знайдено.
+            Спробуй змінити жанр, виконавця або рік.
+        </p>
+
+        <a class="card-link" asp-controller="Albums" asp-action="Index">
+            Скинути фільтр
+        </a>
+    </section>
+}

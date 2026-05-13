@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Noise</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container noise-nav">
+            <a class="noise-logo" asp-controller="Home" asp-action="Index">
+                <img src="~/images/logo-noise.png" alt="NOISE logo" class="logo-img" />
+            </a>
+
+            <form class="header-search" asp-controller="Search" asp-action="Index" method="get">
+                <span class="search-icon">⌕</span>
+                <input type="text" name="query" placeholder="Search" />
+            </form>
+
+            <nav class="noise-menu">
+                <a asp-controller="Home" asp-action="Index">Museum</a>
+                <a asp-controller="News" asp-action="Index">News</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container noise-main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-logo">
+                    <img src="~/images/logo-noise.png" alt="NOISE logo" class="logo-img" />
+                </div>
+
+                <p>Exploring the evolution of sound and its impact on culture</p>
+            </div>
+
+            <div>
+                <h4>Navigate</h4>
+                <a asp-controller="Home" asp-action="Index">Museum</a>
+                <a asp-controller="Genres" asp-action="Index">Genres</a>
+                <a asp-controller="Artists" asp-action="Index">Artists</a>
+                <a asp-controller="Albums" asp-action="Index">Albums</a>
+            </div>
+
+            <div>
+                <h4>Explore</h4>
+                <a asp-controller="Media" asp-action="Index">Materials</a>
+                <a asp-controller="Influence" asp-action="Index">Influence</a>
+                <a asp-controller="News" asp-action="Index">News</a>
+                <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+
+                <div class="copyright">
+                    © 2026 NOISE Museum
+                </div>
+            </div>
+        </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

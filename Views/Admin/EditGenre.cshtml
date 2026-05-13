@@ -1,0 +1,54 @@
+@model Noise.Models.Genre
+
+@{
+    ViewData["Title"] = "Редагувати жанр";
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Admin Panel</p>
+    <h1>Редагувати жанр</h1>
+    <p>
+        Форма для зміни назви, опису, року виникнення або країни походження музичного жанру.
+    </p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        <form asp-action="EditGenre" method="post" class="admin-form">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Name">Назва жанру</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description">Опис жанру</label>
+                <textarea asp-for="Description" class="form-control" rows="6"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="YearOfOrigin">Рік виникнення</label>
+                <input asp-for="YearOfOrigin" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryId">Країна походження</label>
+                <select asp-for="CountryId" class="form-control">
+                    @foreach (var country in ViewBag.Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="admin-button">
+                Зберегти зміни
+            </button>
+
+            <a class="card-link ms-3" asp-controller="Admin" asp-action="Genres">
+                Назад до керування жанрами
+            </a>
+        </form>
+    </div>
+</section>

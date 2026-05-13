@@ -1,0 +1,13 @@
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+
+app.db-shm
+app.db-wal
+
+.DS_Store
+
+*.log

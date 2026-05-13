@@ -1,0 +1,59 @@
+@model Noise.Models.Genre
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="page-hero">
+    <p class="eyebrow">Genre</p>
+    <h1>@Model.Name</h1>
+    <p>@Model.Description</p>
+</section>
+
+<section class="details-layout">
+    <div class="details-main">
+        <h2>Походження жанру</h2>
+        <p>
+            Жанр виник приблизно у @Model.YearOfOrigin році.
+            Країна походження: <strong>@Model.Country?.Name</strong>.
+        </p>
+
+        <h2>Виконавці та гурти</h2>
+
+        @if (Model.Artists.Any())
+        {
+            <div class="mini-list">
+                @foreach (var artist in Model.Artists)
+                {
+                    <div class="mini-card">
+                        <h3>@artist.Name</h3>
+                        <p>@artist.Biography</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>Для цього жанру поки не додано виконавців.</p>
+        }
+
+        <h2>Музичні альбоми</h2>
+
+        @if (Model.MusicItems.Any())
+        {
+            <div class="mini-list">
+                @foreach (var item in Model.MusicItems)
+                {
+                    <div class="mini-card">
+                        <h3>@item.Title</h3>
+                        <p>@item.ReleaseYear • @item.Type</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>Для цього жанру поки не додано музичних матеріалів.</p>
+        }
+    </div>
+</section>
